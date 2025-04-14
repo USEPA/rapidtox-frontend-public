@@ -1,0 +1,54 @@
+.ag-header-cell{
+    background-color: #0071bc !important;
+    color: white !important;;
+}
+.ag-status-bar{
+    background-color: #0071bc !important;
+    color: white !important;
+    float: left;
+}
+.modal-header  {
+    color: white ! important;
+    background-color: #0071bc !important;
+}
+.btn:hover
+{
+    background-color: #4089ff !important;
+}
+.create-hutton-active:hover{
+    background-color: #4089ff !important;
+}
+.session-button{
+    background-color: #0071bc !important;
+    border-color: #0071bc !important;
+    margin: 4px;
+}
+v-stepper__step--editable > .v-stepper__step__step  {
+    background-color: #0071bc !important;
+    border-color: #0071bc !important;
+}
+.active-divider
+{
+    background-color: #0071bc !important;
+}
+.active-nav-div{
+    background-color:#0071bc !important;
+}
+.create-button-active{
+    background-color: #0071bc !important;
+}
+
+.create-button-inactive{
+    background-color: rgb(211, 211, 211) !important;
+    border-color: rgb(108, 117, 125) !important;;
+    color: rgb(0, 0, 0)  !important;;
+}
+.create-button-inactive:hover{
+    background-color: rgb(211, 211, 211) !important;
+    border-color: rgb(108, 117, 125) !important;;
+    color: rgb(0, 0, 0) !important;;
+}
+
+
+
+

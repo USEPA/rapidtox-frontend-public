@@ -1,0 +1,83 @@
+name: Container-security-scan
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+on:
+  push:
+    branches: [ dev, staging ]
+    # Publish semver tags as releases.
+    tags: [ 'v*.*.*' ]
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+
+
+jobs:
+  container-scan:
+
+    runs-on: th878
+    environment: ${{ github.head_ref || github.ref_name }}
+    permissions:
+      contents: read
+      packages: write
+      # This is used to complete the identity challenge
+      # with sigstore/fulcio when running outside of PRs.
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      # Create .env file for build  
+      - name: Creating .env file
+        run: echo "$ENV_TEXT" > .env
+        env:
+          ENV_TEXT: ${{vars.ENV_TEXT}}
+
+      # Create .npmrc for package installs
+      - name: Configure .npmrc
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
+          echo "@usepa:registry=https://npm.pkg.github.com/" >> .npmrc
+          
+      - name: Docker build
+        run: docker build -f docker/Dockerfile -t rapidtox-frontend-security-${{ github.head_ref || github.ref_name }} .
+        
+      - name: Create Output Folder
+        run: mkdir output   
+        
+      - name: Run security scan on the container
+        uses: aquasecurity/trivy-action@0.12.0
+        id:   scan
+        with:
+          image-ref: 'rapidtox-frontend-security-${{ github.head_ref || github.ref_name }}'
+          format: template
+          template: "@/contrib/html.tpl"
+          output: ./output/trivy-report.html
+          severity: 'CRITICAL,HIGH'
+             
+      - name: get current date
+        id: date
+        run: echo "date=$(TZ=":EST" date +'%Y-%m-%d %H.%MEST')" >>$GITHUB_OUTPUT      
+          
+      - name: Use the Upload Artifact GitHub Action
+        uses: actions/upload-artifact@v4
+        with: 
+          name: container-scan-report-${{ steps.date.outputs.date }}
+          path: output
+          
+      - name: remove previous trivy report
+        run: rm -rf /data/watchtower/rapidtox/container-results/rapidtox-frontend/trivy-report.html
+   
+      - name: download artifacts to the computer    
+        uses: actions/download-artifact@v4
+        with:
+          name:  container-scan-report-${{ steps.date.outputs.date }}
+          path: /data/watchtower/rapidtox/container-results/rapidtox-frontend 

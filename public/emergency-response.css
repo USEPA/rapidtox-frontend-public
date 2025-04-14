@@ -1,0 +1,54 @@
+.ag-header-cell{
+    background-color: #190182 !important;
+}
+.ag-status-bar{
+    background-color: #190182 !important;
+    color: white !important;
+    float: left;
+}
+.create-button-active:hover
+{
+    background-color: #8c68cd!important;
+}
+.modal-header  {
+    background-color: #190182 !important;
+    color: white ! important;
+}
+.session-button{
+    background-color: #190182 !important;
+    border-color: #190182 !important;
+    margin: 4px;
+}
+:deep(.v-stepper__step--editable > .v-stepper__step__step)  {
+    background-color: #190182 !important;
+    border-color: #190182 !important;
+}
+.active-divider
+{
+    background-color: #190182 !important;
+}
+.create-button-active {
+    background-color: #190182 !important;
+}
+.create-button-inactive{
+    background-color: rgb(211, 211, 211) !important;
+    border-color: rgb(108, 117, 125) !important;;
+    color: rgb(0, 0, 0) !important;;
+
+}
+.create-button-inactive:hover{
+    background-color: rgb(211, 211, 211) !important;
+    border-color: rgb(108, 117, 125) !important;;
+    color: rgb(0, 0, 0) !important;;
+}
+
+.active-nav-div{
+    background-color:#190182 !important;
+}
+custom-val-table-head {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #190182 !important;;
+    color: white !important;;
+}

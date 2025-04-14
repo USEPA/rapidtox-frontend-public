@@ -1,0 +1,26 @@
+{
+  "Carcinogenic to Humans": [
+    "Carcinogenic to Humans (2005 U.S. EPA Cancer Guidelines)",
+    "Formerly referred to as Group A (1986 U.S. EPA Cancer Guidelines)",
+    "IARC Group 1"
+  ],
+  "C (Possible Human Carcinogen)": [
+    "Likely to be Carcinogenic to Humans (2005 U.S. EPA Cancer Guidelines)",
+    "Formerly referred to as Group B1 (Limited human epidemiological evidence and sufficient experimental animal evidence) or Group B2 (Experimental animal evidence only) (1986 U.S. EPA Cancer Guidelines)",
+    "IARC Group 2A"
+  ],
+  "Group 2B - Possibly Carcinogenic to Humans": [
+    "Suggestive Evidence of Carcinogenic Potential (2005 U.S. EPA Cancer Guidelines)",
+    "Formerly referred to as Group C (1986 EPA Cancer Guidelines)",
+    "IARC Group 2B"
+  ],
+  "Inadequate for an Assessment of Carcinogenic Potential": [
+    "Inadequate Information to Assess Carcinogenic Potential (2005 U.S. EPA Cancer Guidelines)",
+    "Formerly referred to as Group D (1986 EPA Cancer Guidelines)",
+    "IARC Group 3"
+  ],
+  "Not Likely to be Carcinogenic to Humans": [
+    "Not Likely to be Carcinogenic to Humans (2005 U.S. EPA Cancer Guidelines)",
+    "Formerly referred to as Group E (1986 EPA Cancer Guidelines)"
+  ]
+}

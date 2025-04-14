@@ -1,0 +1,52 @@
+diff --git a/node_modules/nuxt-oidc-auth/dist/module.d.mts b/node_modules/nuxt-oidc-auth/dist/module.d.mts
+index cf46014..576b61c 100644
+--- a/node_modules/nuxt-oidc-auth/dist/module.d.mts
++++ b/node_modules/nuxt-oidc-auth/dist/module.d.mts
+@@ -577,6 +577,8 @@ interface DevModeConfig {
+      * @default 'nuxt:oidc:auth:subject
+      */
+     subject?: string;
++
++    provider?: string;
+ }
+ interface AuthSessionConfig {
+     /**
+diff --git a/node_modules/nuxt-oidc-auth/dist/module.d.ts b/node_modules/nuxt-oidc-auth/dist/module.d.ts
+index cf46014..576b61c 100644
+--- a/node_modules/nuxt-oidc-auth/dist/module.d.ts
++++ b/node_modules/nuxt-oidc-auth/dist/module.d.ts
+@@ -577,6 +577,8 @@ interface DevModeConfig {
+      * @default 'nuxt:oidc:auth:subject
+      */
+     subject?: string;
++
++    provider?: string;
+ }
+ interface AuthSessionConfig {
+     /**
+diff --git a/node_modules/nuxt-oidc-auth/dist/runtime/server/handler/dev.js b/node_modules/nuxt-oidc-auth/dist/runtime/server/handler/dev.js
+index 978cd6a..5964315 100644
+--- a/node_modules/nuxt-oidc-auth/dist/runtime/server/handler/dev.js
++++ b/node_modules/nuxt-oidc-auth/dist/runtime/server/handler/dev.js
+@@ -17,7 +17,7 @@ export function devEventHandler({ onSuccess }) {
+       updatedAt: timestamp,
+       expireAt: timestamp + 86400,
+       // Adding one day
+-      provider: "dev",
++      provider: useRuntimeConfig().oidc.devMode?.provider || 'oidc',
+       userName: useRuntimeConfig().oidc.devMode?.userName || "Nuxt OIDC Auth Dev",
+       ...useRuntimeConfig().oidc.devMode?.userInfo && { userInfo: useRuntimeConfig().oidc.devMode?.userInfo },
+       ...useRuntimeConfig().oidc.devMode?.idToken && { idToken: useRuntimeConfig().oidc.devMode?.idToken },
+diff --git a/node_modules/nuxt-oidc-auth/dist/runtime/types.d.ts b/node_modules/nuxt-oidc-auth/dist/runtime/types.d.ts
+index a5d2395..7d739db 100644
+--- a/node_modules/nuxt-oidc-auth/dist/runtime/types.d.ts
++++ b/node_modules/nuxt-oidc-auth/dist/runtime/types.d.ts
+@@ -91,6 +91,8 @@ export interface DevModeConfig {
+      * @default 'nuxt:oidc:auth:subject
+      */
+     subject?: string;
++
++    provider?: string;
+ }
+ export interface AuthSession {
+     state: string;

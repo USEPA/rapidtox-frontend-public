@@ -1,0 +1,61 @@
+name: Run Unit Tests on PR
+
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+on:
+  pull_request:
+    branches: [ "dev" ]
+    
+jobs:
+
+  Unit-test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      # Create .env file for build  
+      - name: Creating .env file
+        run: echo "$ENV_TEXT" > .env
+        env:
+          ENV_TEXT: ${{vars.ENV_TEXT}}
+          
+      - name: Find the PR branch name
+        id: pr
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                      "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER")
+          BRANCH_NAME=$(echo "$RESPONSE" | jq -r '.head.ref')
+          echo "Branch name: $BRANCH_NAME"
+          echo "::set-output name=branch_name::$BRANCH_NAME"  # Set the branch_name output
+
+      # Create .npmrc for package installs
+      - name: Configure .npmrc
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
+          echo "@usepa:registry=https://npm.pkg.github.com/" >> .npmrc
+      
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run Vitest unit tests.
+        id: run-tests
+        run: |
+          yarn test
+          echo "Test results: $?" 
+          
+      - name: Check test result
+        run: |
+          if [ "${{ steps.run-tests.outcome }}" == "success" ]; then
+            echo "PR is ready to be merged."
+          else
+            echo "Please fix your code and try again, PR can't be merged at this time."
+          fi 
+    

@@ -1,0 +1,7 @@
+// Global sass variables that can be used in JS
+@import "./custom";
+
+:export {
+  erColor: #{$er-color};
+  hhaColor: #{$hha-color};
+}
